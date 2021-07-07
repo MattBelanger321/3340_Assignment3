@@ -1,0 +1,25 @@
+table {
+    font-family: times;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td{
+    border: 1px solid black;
+    text-align: center;
+    padding: 8px;
+}
+th{
+    border: 1px solid black;
+    text-align: center;
+    color: white;
+    padding: 8px;
+}
+
+figcaption {
+    background-color: black;
+    color: white;
+    font-style: italic;
+    padding: 2px;
+    text-align: center;
+}
