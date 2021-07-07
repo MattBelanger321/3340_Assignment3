@@ -39,42 +39,114 @@ const items = [
 
 })(window, document, undefined);
 
+//returns -1 if item is not found in table returns the index of the row otherwise
+function findRowIndex(item){
+    let table = document.getElementById("cart");
+    for(let i = 1;i< table.rows.length;i++){
+        if(table.rows[i].cells[0].innerHTML === item){
+            return i;
+        }
+    }
+    return -1;
+}
+
+function remove(item){
+    let table = document.getElementById("cart");
+
+    let index = findRowIndex(item);
+    if(index !== -1){
+        table.deleteRow(index);
+        return;
+    }
+
+    console.log("ERR: Row not found");
+}
+
+function addQuan(item) {
+    let table = document.getElementById("cart");
+
+    let index = findRowIndex(item);
+    if(index !== -1){
+        table.rows[index].cells[3].innerHTML = +table.rows[index].cells[3].innerHTML + 1;
+        return;
+    }
+    console.log("ERR: Row not found");
+}
+
+function subQuan(item) {
+    let table = document.getElementById("cart");
+
+    let index = findRowIndex(item);
+    if(index !== -1){
+        table.rows[index].cells[3].innerHTML -= 1;
+        if(+table.rows[index].cells[3].innerHTML === 0){
+            remove(item)
+        }
+        return;
+    }
+
+    console.log("ERR: Row not found");
+}
+
 //adds row to Cart table
 function addToCart(id){
-    let table = document.getElementById("cart");
-    let row = table.insertRow(1);
-    let cell = row.insertCell(0);
-
-    //add Item Name
     let src = document.getElementById(id).src;
     let item = src.substring(src.indexOf("/img/")+6,src.length -4);
-    cell.innerHTML = item;
 
-    //add captiom
-    cell = row.insertCell(1);
-    let index = src.charAt(src.indexOf("/img/")+5);
+    if(findRowIndex(item) === -1) {
 
-    //convert index to an integer
-    if(index === 'A'){  //used hex for the indices > 9
-        index = 10;
-    }else if(index === 'B'){
-        index = 11;
+        let table = document.getElementById("cart");
+        let row = table.insertRow(1);
+        let cell = row.insertCell(0);
+
+        //add Item Name
+        cell.innerHTML = item;
+
+        //add captiom
+        cell = row.insertCell(1);
+        let index = src.charAt(src.indexOf("/img/") + 5);
+        //convert index to an integer
+        if (index === 'A') {  //used hex for the indices > 9
+            index = 10;
+        } else if (index === 'B') {
+            index = 11;
+        } else {
+            index = +index;
+        }
+        cell.innerHTML = items[index][1];   //the caption
+
+        //add price
+        cell = row.insertCell(2);
+        cell.innerHTML = "$".concat(items[index][2]);   //the price
+
+        //add quantity
+        cell = row.insertCell(3);
+        cell.innerHTML = 1;
+
+        //add actions
+        let act = row.insertCell(4);
+        //remove
+        let rem = document.createElement("button");
+        rem.appendChild(document.createTextNode(" X "));
+        rem.onclick = function () {
+            remove(item)
+        };
+        act.appendChild(rem);
+        //add 1
+        let add = document.createElement("button");
+        add.appendChild(document.createTextNode(" + "));
+        add.onclick = function () {
+            addQuan(item)
+        };
+        act.appendChild(add);
+        //sub 1
+        let sub = document.createElement("button");
+        sub.appendChild(document.createTextNode(" - "));
+        sub.onclick = function () {
+            subQuan(item)
+        };
+        act.appendChild(sub);
     }else{
-        index = +index;
+        ++document.getElementById("cart").rows[findRowIndex(item)].cells[3].innerHTML;
     }
-    cell.innerHTML = items[index][1];
-
-    //add price
-    cell = row.insertCell(2);
-    cell.innerHTML = "$".concat(items[index][2]);
-
-    //add quantity and Action
-    cell = row.insertCell(3);
-    cell.innerHTML = 1;
-    cell = row.insertCell(4);
-    cell.innerHTML = "" +
-        "<b onclick='remove()'> X </b>" +
-        "<b onclick='addQuan()'> + </b>" +
-        "<b onclick='subQuan()'> - </b>"
-    ;
 }
