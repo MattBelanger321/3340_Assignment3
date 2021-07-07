@@ -7,6 +7,7 @@
         <meta name="keywords" content="home assignment webdev">
         <meta name="description" content="this is the home page for Assignment 3">
         <link rel="stylesheet" href="styles.css">
+        <script src = script.js></script>
     </head>
 
     <!--This defines the body section of the document-->
@@ -17,40 +18,40 @@
     <tr bgcolor="silver">
         <td>
             <figure>
-                <img width="200" height="200" src="img/photo1.png" alt = "Photo1">
-                <figcaption>TODO</figcaption>
+                <img id="img1" width="200" height="200" src="" alt = "Photo1">
+                <figcaption id = "cap1">TODO</figcaption>
             </figure>
         </td>
         <td>
             <figure>
-                <img width="200" height="200" src="img/photo2.png" alt = "Photo2">
-                <figcaption>TODO</figcaption>
+                <img id="img2" width="200" height="200" src="" alt = "Photo2">
+                <figcaption id = "cap2">TODO</figcaption>
             </figure>
         </td>
         <td>
             <figure>
-                <img width="200" height="200" src="img/photo3.png" alt = "Photo3">
-                <figcaption> TODO </figcaption>
+                <img id="img3" width="200" height="200" src="" alt = "Photo3">
+                <figcaption id = "cap3"> TODO </figcaption>
             </figure>
         </td>
     </tr>
     <tr bgcolor="silver">
         <td>
             <figure>
-                <img width="200" height="200" src="img/photo4.png" alt = "Photo4">
-                <figcaption> TODO </figcaption>
+                <img id="img4" width="200" height="200" src="" alt = "Photo4">
+                <figcaption id = "cap4"> TODO </figcaption>
             </figure>
         </td>
         <td>
             <figure>
-                <img width="200" height="200" src="img/photo5.png" alt = "Photo5">
-                <figcaption> TODO </figcaption>
+                <img id="img5" width="200" height="200" src="" alt = "Photo5">
+                <figcaption id = "cap5"> TODO </figcaption>
             </figure>
         </td>
         <td>
             <figure>
-                <img width="200" height="200" src="img/photo6.png" alt = "Photo6">
-                <figcaption> TODO </figcaption>
+                <img id="img6" width="200" height="200" src="" alt = "Photo6">
+                <figcaption id = "cap6"> TODO </figcaption>
             </figure>
         </td>
     </tr>
@@ -59,16 +60,25 @@
 
 
 <table>
-    <tbody>
-    <caption>Recommended Items for sale</caption>
-    <tr bgcolor="silver">
-        <td>
-            <figure>
-                <img width="200" height="200" src="img/photo1.png" alt = "Photo1">
-                <figcaption>TODO</figcaption>
-            </figure>
-        </td>
-    </tr>
+    <tbody id="cart">
+        <caption>Your Cart</caption>
+        <tr bgcolor="#8391749">
+            <th>
+                Item
+            </th>
+            <th>
+                Caption
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
     </tbody>
 </table>
 </body>
