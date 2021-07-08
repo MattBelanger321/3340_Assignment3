@@ -13,7 +13,7 @@ const items = [
     ["img/Aspoon.png", "A Metal Spoon", 9.99],
     ["img/Btable.png", "Dinner Table", 150.78]
 ];
-
+let chosens = [];
 //Solves bug involving accessing elements being referenced before they are loaded
 (function(window, document, undefined){
     window.onload = init;
@@ -21,7 +21,7 @@ const items = [
     function init(){
         let i = 0;
 
-        let chosens = [];
+
         let chose = Math.ceil(Math.random() * 100) % 12;
         for(i = 0;i<6;i++){//get our 6 random items
             while(chosens.includes(chose)){    //insure items has not been chose
@@ -37,7 +37,40 @@ const items = [
         }
     }
 
+
+
 })(window, document, undefined);
+
+function showMore(toggle){
+    if(toggle === 1){
+        var show = document.getElementById("more");
+        show.onclick = function (){showMore(0)};
+        let j = 0;
+        for(let i = 0;i<12;i++){
+
+            if(!chosens.includes(i)){
+                let imgID = "img".concat((j + 1).toString());
+                let capID = "cap".concat((j + 1).toString());
+                document.getElementById(imgID).src = items[i][0];
+                document.getElementById(capID).innerHTML = items[i][1];
+                j+=1;
+            }
+        }
+    }else{
+        var show = document.getElementById("more");
+        show.onclick = function (){showMore(1)};
+        let j = 0;
+        for(let i = 0;i<12;i++){
+            if(chosens.includes(i)){
+                let imgID = "img".concat((j + 1).toString());
+                let capID = "cap".concat((j + 1).toString());
+                document.getElementById(imgID).src = items[i][0];
+                document.getElementById(capID).innerHTML = items[i][1];
+                j+=1;
+            }
+        }
+    }
+}
 
 //returns -1 if item is not found in table returns the index of the row otherwise
 function findRowIndex(item){
