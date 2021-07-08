@@ -56,6 +56,10 @@ function remove(item){
     let index = findRowIndex(item);
     if(index !== -1){
         table.deleteRow(index);
+        sumTotal()
+        if(table.rows.length === 2){
+            remove("Total");
+        }
         return;
     }
 
@@ -68,6 +72,7 @@ function addQuan(item) {
     let index = findRowIndex(item);
     if(index !== -1){
         table.rows[index].cells[3].innerHTML = +table.rows[index].cells[3].innerHTML + 1;
+        sumTotal()
         return;
     }
     console.log("ERR: Row not found");
@@ -79,6 +84,7 @@ function subQuan(item) {
     let index = findRowIndex(item);
     if(index !== -1){
         table.rows[index].cells[3].innerHTML -= 1;
+        sumTotal()
         if(+table.rows[index].cells[3].innerHTML === 0){
             remove(item)
         }
@@ -88,12 +94,31 @@ function subQuan(item) {
     console.log("ERR: Row not found");
 }
 
+function sumTotal(){
+    let table = document.getElementById("cart");
+    if(findRowIndex("Total") === -1){
+        let totRow = table.insertRow(-1);
+        let cell1 = totRow.insertCell(0);
+        cell1.colSpan = 4;
+        cell1.innerHTML = "Total";
+        let cell2 = totRow.insertCell(1);
+        cell2.innerHTML = "$0";
+    }
+
+    let tot = 0;
+    let i = 1
+    for(i = 1;i< table.rows.length - 1;i++){
+        tot += +table.rows[i].cells[2].innerHTML.substring(1) * +table.rows[i].cells[3].innerHTML;
+    }
+    table.rows[i].cells[1].innerHTML = "$".concat(tot.toFixed(2).toString());
+}
+
 //adds row to Cart table
 function addToCart(id){
     let src = document.getElementById(id).src;
     let item = src.substring(src.indexOf("/img/")+6,src.length -4);
 
-    if(findRowIndex(item) === -1) {
+    if(findRowIndex(item) === -1) { //if item is not in cart
 
         let table = document.getElementById("cart");
         let row = table.insertRow(1);
@@ -149,4 +174,5 @@ function addToCart(id){
     }else{
         ++document.getElementById("cart").rows[findRowIndex(item)].cells[3].innerHTML;
     }
+    sumTotal();
 }
