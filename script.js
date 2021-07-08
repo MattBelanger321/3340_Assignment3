@@ -88,11 +88,14 @@ function remove(item){
 
     let index = findRowIndex(item);
     if(index !== -1){
-        table.deleteRow(index);
-        sumTotal()
-        if(table.rows.length === 2){
+        if(table.rows.length === 3){
+            table.deleteRow(index);
             remove("Total");
+            return;
+        }else{
+            sumTotal()
         }
+        table.deleteRow(index);
         return;
     }
 
